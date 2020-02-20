@@ -20,8 +20,23 @@ public class ClassroomTest {
         Integer actualExamAmount = von.getNumberOfExamsTaken();
 
         assertEquals(expectedFName, actualFName);
-        assertEquals(expectedLName, actualFName);
+        assertEquals(expectedLName, actualLName);
         assertEquals(expectedExamAmount, actualExamAmount);
-        assertEquals(expectedExamScore[0], von.getExamScores().get(0));
+        assertEquals(expectedExamScore[0], von.getExams().get(0));
+    }
+
+    @Test
+    public void examTest(){
+        // : Given
+        String firstName = "Leon";
+        String lastName = "Hunter";
+        Double[] examScores = { 100.0, 95.0, 123.0, 96.0 };
+        Student student = new Student(firstName, lastName, examScores);
+
+        // When
+        String output = student.getExamScores();
+
+        // Then
+        System.out.println(output);
     }
 }
