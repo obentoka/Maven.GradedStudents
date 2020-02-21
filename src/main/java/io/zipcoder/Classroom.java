@@ -41,4 +41,8 @@ public class Classroom {
         this.students.put(id, student);
         id++;
     }
+
+    public void removeStudent(String firstName, String secondName){
+        //change the collection you are using.
+    }
 }
