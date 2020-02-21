@@ -50,4 +50,45 @@ public class ClassroomTest {
             System.out.println(postEnrollment[i].toString());
         }
     }
+
+    @Test
+    public void removeTest(){
+        int maxNumberOfStudents = 1;
+        Classroom classroom = new Classroom(maxNumberOfStudents);
+        Double[] examScores = { 100.0, 150.0, 250.0, 0.0 };
+        Student student = new Student("Leon", "Hunter", examScores);
+
+        classroom.addStudent(student);
+        classroom.removeStudent(student.getFirstName(), student.getLastName());
+
+        Integer expectedSize = 0;
+        Integer actualSize = classroom.getStudents().length;
+
+        assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
+    public void getStudentByScoreTest(){
+        int maxNumberOfStudents = 2;
+        Classroom classroom = new Classroom(maxNumberOfStudents);
+        Double[] examScores0 = { 100.0, 150.0, 250.0, 0.0 };
+        Student student0 = new Student("Aeon", "Hunter", examScores0);
+        Double[] examScores = { 100.0, 150.0, 250.0, 0.0 };
+        Student student = new Student("Leon", "Hunter", examScores);
+        Double[] examScores2 = { 100.0, 150.0, 250.0, 0.0 };
+        Student student2 = new Student("Leon", "Bunter", examScores2);
+        Double[] examScores3 = { 100.0, 100.0, 100.0, 0.0 };
+        Student student3 = new Student("Test", "Are", examScores3);
+
+        classroom.addStudent(student);
+        classroom.addStudent(student2);
+        classroom.addStudent(student3);
+        classroom.addStudent(student0);
+        Student[] actualStudents = classroom.getSudentByScore();
+        for (int i = 0; i < actualStudents.length; i++) {
+            System.out.println("Student Name: " + actualStudents[i].getFirstName()
+                    + " " + actualStudents[i].getLastName());
+            System.out.println(actualStudents[i].toString());
+        }
+    }
 }
