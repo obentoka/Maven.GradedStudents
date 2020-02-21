@@ -44,9 +44,36 @@ public class Student {
     public String getExamScores(){
         StringBuilder returnString = new StringBuilder();
         for(Double e : this.examScores){
-            returnString.append("Exam " + this.examScores.indexOf(e) +
+            returnString.append("Exam " + (this.examScores.indexOf(e)+1) +
                     " -> " + e.intValue()+ "\n");
         }
+        return returnString.toString();
+    }
+
+    public void addExamScore(double examScore){
+        this.examScores.add(examScore);
+    }
+
+    public void setExamScore(Integer examIndex, Double changeScore){
+        this.examScores.set(examIndex-1, changeScore);
+    }
+
+    public Double getAverageExamScore(){
+        Double sum = 0.0;
+        for(Double i : this.examScores){
+            sum += i.intValue();
+        }
+        return sum / this.examScores.size();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder returnString = new StringBuilder();
+        int avgScore = getAverageExamScore().intValue();
+        returnString.append("Average Score: " + avgScore + "\n");
+        returnString.append("Exam Scores: \n");
+        returnString.append(getExamScores());
+
         return returnString.toString();
     }
 }
