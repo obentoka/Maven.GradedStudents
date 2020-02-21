@@ -2,9 +2,15 @@ package io.zipcoder;
 
 import org.junit.Test;
 
+import java.util.Map;
+import java.util.logging.Logger;
+
 import static org.junit.Assert.assertEquals;
 
 public class ClassroomTest {
+
+    private static final Logger LOGGER =
+            Logger.getLogger((ClassroomTest.class.getName()));
 
     @Test
     public void getAverageTest(){
@@ -69,7 +75,7 @@ public class ClassroomTest {
 
     @Test
     public void getStudentByScoreTest(){
-        int maxNumberOfStudents = 2;
+        int maxNumberOfStudents = 5;
         Classroom classroom = new Classroom(maxNumberOfStudents);
         Double[] examScores0 = { 100.0, 150.0, 250.0, 0.0 };
         Student student0 = new Student("Aeon", "Hunter", examScores0);
@@ -89,6 +95,36 @@ public class ClassroomTest {
             System.out.println("Student Name: " + actualStudents[i].getFirstName()
                     + " " + actualStudents[i].getLastName());
             System.out.println(actualStudents[i].toString());
+        }
+    }
+
+    @Test
+    public void getGradeBookTest(){
+        int maxNumberOfStudents = 5;
+        Classroom classroom = new Classroom(maxNumberOfStudents);
+        Double[] examScores0 = { 100.0, 150.0, 250.0, 0.0 };
+        Student student0 = new Student("Aeon", "Hunter", examScores0);
+        Double[] examScores = { 100.0, 100.0, 250.0, 0.0 };
+        Student student = new Student("Leon", "Hunter", examScores);
+        Double[] examScores2 = { 100.0, 75.0, 250.0, 0.0 };
+        Student student2 = new Student("Leon", "Bunter", examScores2);
+        Double[] examScores3 = { 100.0, 100.0, 100.0, 0.0 };
+        Student student3 = new Student("Test", "Are", examScores3);
+        Double[] examScores4 = { 100.0, 150.0, 100.0, 0.0 };
+        Student student4 = new Student("Leon", "Bumber", examScores4);
+
+
+        classroom.addStudent(student);
+        classroom.addStudent(student2);
+        classroom.addStudent(student3);
+        classroom.addStudent(student0);
+        classroom.addStudent(student4);
+        Student[] studentArr = classroom.getStudents();
+        Map<Student,Character> grade = classroom.getGradeBook();
+
+        for (int i = 0; i < grade.size(); i++) {
+            LOGGER.info(studentArr[i].toString());
+            LOGGER.info("" + grade.get(studentArr[i]));
         }
     }
 }
