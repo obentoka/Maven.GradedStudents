@@ -55,56 +55,20 @@ public class Classroom {
             if (this.students.get(i).getFirstName().equals(firstName)
                     && this.students.get(i).getLastName().equals(lastName)) {
                 students.remove(i);
+                students.add(null);
             }
         }
     }
 
     public Student[] getSudentByScore(){
         Student[] returnStudents = new Student[this.students.size()];
-        for (int i = 0; i < this.students.size(); i++) {
-            returnStudents[i] = this.students.get(i);
-        }
+        List<Student> sortedStudents = students;
+        CompareStudents byAverageLastNameFirstName = new CompareStudents();
 
-        for (int i = 0; i < returnStudents.length; i++) {
-            for (int j = i + 1; j < returnStudents.length; j++) {
-                if (returnStudents[i].getAverageExamScore() < returnStudents[j].getAverageExamScore()) {
-                    Student temp = returnStudents[i];
-                    returnStudents[i] = returnStudents[j];
-                    returnStudents[j] = temp;
-                }
-            }
-        }
+        Collections.sort(sortedStudents, byAverageLastNameFirstName);
 
-        for (int i = 1; i < returnStudents.length; i++) {
-            if(returnStudents[i].getAverageExamScore().equals(returnStudents[i-1].getAverageExamScore())) {
-                String studentBeforeLastName = returnStudents[i-1].getLastName().toLowerCase();
-                String studentBeforeFirstName = returnStudents[i-1].getFirstName().toLowerCase();
-                String studentAfterLastName = returnStudents[i].getLastName().toLowerCase();
-                String studentAfterFirstName = returnStudents[i].getFirstName().toLowerCase();
-                if (!studentBeforeLastName.equals(studentAfterLastName)) {
-                    int counter = 0;
-                    while (true) {
-                        if (studentBeforeLastName.charAt(counter) > studentAfterLastName.charAt(counter)) {
-                            Student temp = returnStudents[i-1];
-                            returnStudents[i-1] = returnStudents[i];
-                            returnStudents[i] = temp;
-                            break;
-                        }
-                        counter++;
-                    }
-                } else {
-                    int counter = 0;
-                    while (true) {
-                        if (studentBeforeFirstName.charAt(counter) > studentAfterFirstName.charAt(counter)) {
-                            Student temp = returnStudents[i-1];
-                            returnStudents[i-1] = returnStudents[i];
-                            returnStudents[i] = temp;
-                            break;
-                        }
-                        counter++;
-                    }
-                }
-            }
+        for (int i = 0; i < sortedStudents.size(); i++) {
+            returnStudents[i] = sortedStudents.get(i);
         }
         return returnStudents;
     }
